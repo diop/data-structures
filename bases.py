@@ -1,6 +1,7 @@
 #!python
 
 import string
+import math
 # Hint: Use these string constants to encode/decode hexadecimal digits and more
 # string.digits is '0123456789'
 # string.hexdigits is '0123456789abcdefABCDEF'
@@ -17,19 +18,22 @@ def decode(digits, base):
     return: int -- integer representation of number (in base 10)"""
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
-    # TODO: Decode digits from binary (base 2)
+
+    # Decode digits from binary (base 2)
     if base == 2:
         decoded_number = 0
-        for bit in rnage(len(digits)):
+        for bit in range(len(digits)):
             decoded_number += int(digits[-1 - bit]) * (2 ** bit)
         return decoded_number
-    # TODO: Decode digits from hexadecimal (base 16)
-    if base = 16:
+
+    # Decode digits from hexadecimal (base 16)
+    if base == 16:
         decoded_number = 0
         for digit in range(len(digits)):
-            decoded_number += string.hexdigits.index(digits[-1 - digits]) * (16 ** digit)
-            return decoded_number
-    # TODO: Decode digits from any base (2 up to 36)
+            decoded_number += string.hexdigits.index(digits[-1 - digit]) * (16 ** digit)
+        return decoded_number
+
+    # Decode digits from any base (2 up to 36)
     decoded_number = 0
     all_digits = string.digits + string.ascii_lowercase
     for digit in range(len(digits)):
@@ -46,7 +50,7 @@ def encode(number, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
-    # TODO: Encode number in binary (base 2)
+    # Encode number in binary (base 2)
     if base == 2:
         exponent = 0
         while number  / 2 >= 1:
@@ -57,51 +61,53 @@ def encode(number, base):
         encoded_number = ''
         while exponent >= 0:
             if number >= (2 ** exponent):
-                endoded_number += '1'
+                encoded_number += '1'
                 number -= (2 ** exponent)
             else:
                 encoded_number += '0'
             
             exponent-= 1
         return encoded_number
-    # TODO: Encode number in hexadecimal (base 16)
-    if bsse == 16:
+
+    # Encode number in hexadecimal (base 16)
+    if base == 16:
         exponent = 0
         while number / 16 >= 1:
             number /= 16
             exponent += 1
 
-            number = round(number * (16 ** exponent))
-            encoded_number = ''
-            while exponent >= 0:
-                if number >= (16 ** exponent):
-                    placeholder_value = math.floor(number / (16 ** expoent))
-                    endoded_number += string.printable[placeholder_value]
-                    number -= placeholder_value * (16 ** exponent)
-                else:
-                    encoded_number += '0'
+        number = round(number * (16 ** exponent))
+        encoded_number = ''
+        while exponent >= 0:
+            if number >= (16 ** exponent):
+                temp_number = math.floor(number / (16 ** exponent))
+                encoded_number += string.printable[temp_number]
+                number -= temp_number * (16 ** exponent)
+            else:
+                encoded_number += '0'
 
-                exponent -= 1
-            return encoded_number
-    # TODO: Encode number in any base (2 up to 36)
+            exponent -= 1
+        return encoded_number
+
+    # Encode number in any base (2 up to 36)
     exponent = 0
     while number / base >= 1:
         number /= base 
         exponent += 1
 
-        number = round(number * (base ** expoent))
-        encoded_number = '
-        while exponent >= 0:
-            if number >= (base ** exponent):
-                placeholder_value = math.floor(number / (base ** exponent))
-                encoded_number += string.printable[placeholder_value]
-                number -= placeholder_value * (base ** exponet)
-            else:
-                encoded_number += '0'
-            
-            exponent -= 1
+    number = round(number * (base ** exponent))
+    encoded_number = ''
+    while exponent >= 0:
+        if number >= (base ** exponent):
+            temp_number = math.floor(number / (base ** exponent))
+            encoded_number += string.printable[temp_number]
+            number -= temp_number * (base ** exponent)
+        else:
+            encoded_number += '0'
+        
+        exponent -= 1
 
-        return encoded_number
+    return encoded_number
 
 
 def convert(digits, base1, base2):
