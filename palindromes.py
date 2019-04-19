@@ -25,8 +25,9 @@ def is_palindrome_iterative(text):
     #   if text[i] != text[len(text)-i-1]:
     #       return False
     #   return True
+    clean_text = text.lower()
     left_bound = 0
-    right_bound = len(text) - 1
+    right_bound = len(clean_text) - 1
 
     while left_bound <= right_bound:
         while text[left_bound] not in string.ascii_letters:
@@ -34,11 +35,11 @@ def is_palindrome_iterative(text):
         while text[right_bound] not in string.ascii_letters:
             right_bound -= 1
             
-        if text[left_bound] != text[right_bound]:
+        if clean_text[left_bound] != clean_text[right_bound]:
             return False
         
-        index_one += 1
-        index_two -= 1
+        left_bound += 1
+        right_bound -= 1
 
     return True
     

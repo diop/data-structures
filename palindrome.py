@@ -37,8 +37,8 @@ def is_palindrome_iterative(text):
         if text[left_bound] != text[right_bound]:
             return False
         
-        index_one += 1
-        index_two -= 1
+        left_bound += 1
+        right_bound -= 1
 
     return True
     
