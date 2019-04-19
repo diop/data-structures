@@ -142,6 +142,7 @@ class LinkedList(object):
             new_node.next = self.head
         # Update head to new node regardless
         self.head = new_node
+        self.size += 1
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
@@ -194,6 +195,7 @@ class LinkedList(object):
             if node.data == item:
                 # We found data matching the given item, so update found flag
                 found = True
+                self.size -= 1
             else:
                 # Skip to the next node
                 previous = node
